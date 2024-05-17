@@ -65,11 +65,8 @@ class ScreenOptions extends StatelessWidget {
           ),
           const SizedBox(width: 6),
           if (item.reelDescription != null)
-            Expanded(
-              flex: 2,
-              child: Text(item.reelDescription ?? '',
-                  style: const TextStyle(color: Colors.white)),
-            ),
+            Text(item.reelDescription ?? '',
+                style: const TextStyle(color: Colors.white)),
         ],
       ),
     );

@@ -76,7 +76,6 @@ class _ReelsViewerState extends State<ReelsViewer> {
       body: SafeArea(
         child: Stack(
           children: [
-            //We need swiper for every content
             Swiper(
               itemBuilder: (BuildContext context, int index) {
                 return ReelsPage(
@@ -96,30 +95,6 @@ class _ReelsViewerState extends State<ReelsViewer> {
               scrollDirection: Axis.vertical,
               onIndexChanged: widget.onIndexChanged,
             ),
-            if (widget.showAppbar)
-              Container(
-                color: Colors.black26,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                        onPressed: widget.onClickBackArrow ??
-                            () => Navigator.pop(context),
-                        icon: const Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                        )),
-                    Text(
-                      widget.appbarTitle ?? 'Reels View',
-                      style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white),
-                    ),
-                    const SizedBox(),
-                  ],
-                ),
-              ),
           ],
         ),
       ),

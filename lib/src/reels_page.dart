@@ -5,7 +5,6 @@ import 'package:reels_viewer/src/models/reel_model.dart';
 import 'package:reels_viewer/src/utils/url_checker.dart';
 import 'package:video_player/video_player.dart';
 
-import 'components/like_icon.dart';
 import 'components/screen_options.dart';
 
 class ReelsPage extends StatefulWidget {
@@ -113,10 +112,6 @@ class _ReelsPageState extends State<ReelsPage> {
                   CircularProgressIndicator(),
                 ],
               ),
-        if (_liked)
-          const Center(
-            child: LikeIcon(),
-          ),
         if (widget.showProgressIndicator)
           Positioned(
             bottom: 0,

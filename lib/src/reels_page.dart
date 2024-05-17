@@ -133,6 +133,8 @@ class _ReelsPageState extends State<ReelsPage> {
           ),
         Positioned(
           bottom: 20,
+          left: 0,
+          right: 0,
           child: ScreenOptions(
             onClickMoreBtn: widget.onClickMoreBtn,
             onComment: widget.onComment,

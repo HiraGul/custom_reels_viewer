@@ -131,14 +131,17 @@ class _ReelsPageState extends State<ReelsPage> {
               ),
             ),
           ),
-        ScreenOptions(
-          onClickMoreBtn: widget.onClickMoreBtn,
-          onComment: widget.onComment,
-          onFollow: widget.onFollow,
-          onLike: widget.onLike,
-          onShare: widget.onShare,
-          showVerifiedTick: widget.showVerifiedTick,
-          item: widget.item,
+        Positioned(
+          bottom: 20,
+          child: ScreenOptions(
+            onClickMoreBtn: widget.onClickMoreBtn,
+            onComment: widget.onComment,
+            onFollow: widget.onFollow,
+            onLike: widget.onLike,
+            onShare: widget.onShare,
+            showVerifiedTick: widget.showVerifiedTick,
+            item: widget.item,
+          ),
         )
       ],
     );

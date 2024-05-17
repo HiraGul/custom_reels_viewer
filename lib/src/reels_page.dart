@@ -109,7 +109,9 @@ class _ReelsPageState extends State<ReelsPage> {
             : const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircularProgressIndicator(),
+                  CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
                 ],
               ),
         if (widget.showProgressIndicator)
@@ -120,8 +122,8 @@ class _ReelsPageState extends State<ReelsPage> {
               _videoPlayerController,
               allowScrubbing: false,
               colors: const VideoProgressColors(
-                backgroundColor: Colors.blueGrey,
-                bufferedColor: Colors.blueGrey,
+                backgroundColor: Colors.black,
+                bufferedColor: Colors.black,
                 playedColor: Colors.blueAccent,
               ),
             ),

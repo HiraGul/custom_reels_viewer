@@ -36,8 +36,9 @@ class ScreenOptions extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: ListView(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   children: [
                     const SizedBox(height: 110),
                     Row(

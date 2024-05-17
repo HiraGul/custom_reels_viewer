@@ -6,7 +6,6 @@ import 'package:reels_viewer/src/utils/url_checker.dart';
 import 'package:video_player/video_player.dart';
 
 import 'components/like_icon.dart';
-import 'components/screen_options.dart';
 
 class ReelsPage extends StatefulWidget {
   final ReelModel item;
@@ -107,9 +106,9 @@ class _ReelsPageState extends State<ReelsPage> {
                   ),
                 ),
               )
-            : Column(
+            : const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   CircularProgressIndicator(),
                 ],
               ),
@@ -131,15 +130,15 @@ class _ReelsPageState extends State<ReelsPage> {
               ),
             ),
           ),
-        ScreenOptions(
-          onClickMoreBtn: widget.onClickMoreBtn,
-          onComment: widget.onComment,
-          onFollow: widget.onFollow,
-          onLike: widget.onLike,
-          onShare: widget.onShare,
-          showVerifiedTick: widget.showVerifiedTick,
-          item: widget.item,
-        )
+        // ScreenOptions(
+        //   onClickMoreBtn: widget.onClickMoreBtn,
+        //   onComment: widget.onComment,
+        //   onFollow: widget.onFollow,
+        //   onLike: widget.onLike,
+        //   onShare: widget.onShare,
+        //   showVerifiedTick: widget.showVerifiedTick,
+        //   item: widget.item,
+        // )
       ],
     );
   }

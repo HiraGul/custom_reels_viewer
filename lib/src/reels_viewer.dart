@@ -72,7 +72,7 @@ class _ReelsViewerState extends State<ReelsViewer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.black26,
       body: SafeArea(
         child: Stack(
           children: [

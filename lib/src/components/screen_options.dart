@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reels_viewer/reels_viewer.dart';
 import 'package:reels_viewer/src/components/user_profile_image.dart';
-import 'package:reels_viewer/src/utils/convert_numbers_to_short.dart';
-
-import 'comment_bottomsheet.dart';
 
 class ScreenOptions extends StatelessWidget {
   final ReelModel item;
@@ -47,7 +44,7 @@ class ScreenOptions extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         if (item.profileUrl != null)
-                          UserProfileImage(profileUrl: item.profileUrl??''),
+                          UserProfileImage(profileUrl: item.profileUrl ?? ''),
                         if (item.profileUrl == null)
                           const CircleAvatar(
                             child: Icon(Icons.person, size: 18),
@@ -98,52 +95,52 @@ class ScreenOptions extends StatelessWidget {
                   ],
                 ),
               ),
-              Column(
-                children: [
-                  if (onLike != null && !item.isLiked)
-                    IconButton(
-                      icon: const Icon(Icons.favorite_outline,
-                          color: Colors.white),
-                      onPressed: () => onLike!(item.url),
-                    ),
-                  if (item.isLiked)
-                    const Icon(Icons.favorite_rounded, color: Colors.red),
-                  Text(NumbersToShort.convertNumToShort(item.likeCount),
-                      style: const TextStyle(color: Colors.white)),
-                  const SizedBox(height: 20),
-                  IconButton(
-                    icon:
-                        const Icon(Icons.comment_rounded, color: Colors.white),
-                    onPressed: () {
-                  if(onComment!=null)  {  showModalBottomSheet(
-                        barrierColor: Colors.transparent,
-                        context: context,
-                        builder: (ctx) => CommentBottomSheet(commentList: item.commentList??[],onComment: onComment)
-                      );}
-                    },
-                  ),
-                  Text(NumbersToShort.convertNumToShort(item.commentList?.length??0), style: const TextStyle(color: Colors.white)),
-                  const SizedBox(height: 20),
-                  if (onShare != null)
-                    InkWell(
-                      onTap: () => onShare!(item.url),
-                      child: Transform(
-                        transform: Matrix4.rotationZ(5.8),
-                        child: const Icon(
-                          Icons.send,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  const SizedBox(height: 20),
-                  if (onClickMoreBtn != null)
-                    IconButton(
-                      icon: const Icon(Icons.more_vert),
-                      onPressed: onClickMoreBtn!,
-                      color: Colors.white,
-                    ),
-                ],
-              )
+              // Column(
+              //   children: [
+              //     if (onLike != null && !item.isLiked)
+              //       IconButton(
+              //         icon: const Icon(Icons.favorite_outline,
+              //             color: Colors.white),
+              //         onPressed: () => onLike!(item.url),
+              //       ),
+              //     if (item.isLiked)
+              //       const Icon(Icons.favorite_rounded, color: Colors.red),
+              //     Text(NumbersToShort.convertNumToShort(item.likeCount),
+              //         style: const TextStyle(color: Colors.white)),
+              //     const SizedBox(height: 20),
+              //     IconButton(
+              //       icon:
+              //           const Icon(Icons.comment_rounded, color: Colors.white),
+              //       onPressed: () {
+              //     if(onComment!=null)  {  showModalBottomSheet(
+              //           barrierColor: Colors.transparent,
+              //           context: context,
+              //           builder: (ctx) => CommentBottomSheet(commentList: item.commentList??[],onComment: onComment)
+              //         );}
+              //       },
+              //     ),
+              //     Text(NumbersToShort.convertNumToShort(item.commentList?.length??0), style: const TextStyle(color: Colors.white)),
+              //     const SizedBox(height: 20),
+              //     if (onShare != null)
+              //       InkWell(
+              //         onTap: () => onShare!(item.url),
+              //         child: Transform(
+              //           transform: Matrix4.rotationZ(5.8),
+              //           child: const Icon(
+              //             Icons.send,
+              //             color: Colors.white,
+              //           ),
+              //         ),
+              //       ),
+              //     const SizedBox(height: 20),
+              //     if (onClickMoreBtn != null)
+              //       IconButton(
+              //         icon: const Icon(Icons.more_vert),
+              //         onPressed: onClickMoreBtn!,
+              //         color: Colors.white,
+              //       ),
+              //   ],
+              // )
             ],
           ),
         ],

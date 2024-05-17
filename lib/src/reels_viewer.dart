@@ -19,7 +19,6 @@ class ReelsViewer extends StatefulWidget {
   /// function invoke when user click on comment btn and return reel comment
   final Function(String)? onComment;
 
-
   /// function invoke when reel change and return current index
   final Function(int)? onIndexChanged;
 
@@ -54,7 +53,7 @@ class ReelsViewer extends StatefulWidget {
     this.showAppbar = true,
     this.onClickBackArrow,
     this.onIndexChanged,
-    this.showProgressIndicator =true,
+    this.showProgressIndicator = true,
   }) : super(key: key);
 
   @override
@@ -69,10 +68,11 @@ class _ReelsViewerState extends State<ReelsViewer> {
     controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black26,
+      backgroundColor: Colors.red,
       body: SafeArea(
         child: Stack(
           children: [
@@ -105,14 +105,16 @@ class _ReelsViewerState extends State<ReelsViewer> {
                     IconButton(
                         onPressed: widget.onClickBackArrow ??
                             () => Navigator.pop(context),
-                        icon: const Icon(Icons.arrow_back,color: Colors.white,)),
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        )),
                     Text(
                       widget.appbarTitle ?? 'Reels View',
                       style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white
-                      ),
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
                     ),
                     const SizedBox(),
                   ],

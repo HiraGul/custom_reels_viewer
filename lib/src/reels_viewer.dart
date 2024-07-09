@@ -77,6 +77,8 @@ class _ReelsViewerState extends State<ReelsViewer> {
         child: Stack(
           children: [
             Swiper(
+              autoplayDisableOnInteraction: false,
+              autoplay: false,
               loop: false,
               itemBuilder: (BuildContext context, int index) {
                 return ReelsPage(

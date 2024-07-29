@@ -2,7 +2,6 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:reels_viewer/src/models/reel_model.dart';
-import 'package:reels_viewer/src/utils/url_checker.dart';
 import 'package:video_player/video_player.dart';
 
 import 'components/screen_options.dart';
@@ -17,6 +16,7 @@ class ReelsPage extends StatefulWidget {
   final Function()? onFollow;
   final SwiperController swiperController;
   final bool showProgressIndicator;
+
   const ReelsPage({
     Key? key,
     required this.item,
@@ -38,18 +38,18 @@ class _ReelsPageState extends State<ReelsPage> {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
   bool _liked = false;
+  bool _isPlaying = true; // Track whether the video is playing
+
   @override
   void initState() {
     super.initState();
-    if (!UrlChecker.isImageUrl(widget.item.url) &&
-        UrlChecker.isValid(widget.item.url)) {
-      initializePlayer();
-    }
+    initializePlayer();
   }
 
   Future initializePlayer() async {
     _videoPlayerController = VideoPlayerController.network(widget.item.url);
     await Future.wait([_videoPlayerController.initialize()]);
+
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
       autoPlay: true,
@@ -57,6 +57,7 @@ class _ReelsPageState extends State<ReelsPage> {
       looping: false,
     );
     setState(() {});
+
     _videoPlayerController.addListener(() {
       if (_videoPlayerController.value.position ==
           _videoPlayerController.value.duration) {
@@ -68,10 +69,20 @@ class _ReelsPageState extends State<ReelsPage> {
   @override
   void dispose() {
     _videoPlayerController.dispose();
-    if (_chewieController != null) {
-      _chewieController!.dispose();
-    }
+    _chewieController?.dispose();
     super.dispose();
+  }
+
+  void _togglePlayPause() {
+    setState(() {
+      if (_isPlaying) {
+        _chewieController?.pause();
+      } else {
+        _chewieController?.play();
+      }
+      _isPlaying = !_isPlaying;
+    });
+    print(_isPlaying);
   }
 
   @override
@@ -91,15 +102,8 @@ class _ReelsPageState extends State<ReelsPage> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: GestureDetector(
-                    onDoubleTap: () {
-                      if (!widget.item.isLiked) {
-                        _liked = true;
-                        if (widget.onLike != null) {
-                          widget.onLike!(widget.item.url);
-                        }
-                        setState(() {});
-                      }
-                    },
+                    onTap: _togglePlayPause, // Toggle play/pause on tap
+                    onDoubleTap: () {},
                     child: Chewie(
                       controller: _chewieController!,
                     ),

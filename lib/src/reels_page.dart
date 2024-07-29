@@ -70,6 +70,7 @@ class _ReelsPageState extends State<ReelsPage> {
   void dispose() {
     _videoPlayerController.dispose();
     _chewieController?.dispose();
+    _chewieController?.pause();
     super.dispose();
   }
 
@@ -94,7 +95,6 @@ class _ReelsPageState extends State<ReelsPage> {
       onPopInvoked: (val) async {
         _videoPlayerController.dispose();
         _chewieController?.dispose();
-        ;
       },
       child: Stack(
         fit: StackFit.expand,

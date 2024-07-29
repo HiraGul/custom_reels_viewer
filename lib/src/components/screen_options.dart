@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:readmore/readmore.dart';
 import 'package:reels_viewer/reels_viewer.dart';
 import 'package:reels_viewer/src/components/user_profile_image.dart';
 
@@ -65,8 +66,29 @@ class ScreenOptions extends StatelessWidget {
           ),
           const SizedBox(width: 6),
           if (item.reelDescription != null)
-            Text(item.reelDescription ?? '',
-                style: const TextStyle(color: Colors.white)),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: ReadMoreText(
+                item.reelDescription ?? '',
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400),
+                trimMode: TrimMode.Line,
+                trimLines: 2,
+                colorClickableText: Colors.blue,
+                trimCollapsedText: ' Show more',
+                trimExpandedText: ' Show less',
+                moreStyle: const TextStyle(
+                    color: Colors.blue,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w200),
+                lessStyle: const TextStyle(
+                    color: Colors.blue,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w200),
+              ),
+            ),
         ],
       ),
     );

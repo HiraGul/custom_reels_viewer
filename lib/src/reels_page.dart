@@ -82,7 +82,6 @@ class _ReelsPageState extends State<ReelsPage> {
       }
       _isPlaying = !_isPlaying;
     });
-    print(_isPlaying);
   }
 
   @override

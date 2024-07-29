@@ -68,9 +68,9 @@ class _ReelsPageState extends State<ReelsPage> {
 
   @override
   void dispose() {
-    _videoPlayerController.dispose();
+    _chewieController?.pause(); // Pause before dispose
     _chewieController?.dispose();
-    _chewieController?.pause();
+    _videoPlayerController.dispose();
     super.dispose();
   }
 

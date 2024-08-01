@@ -5,6 +5,7 @@ import 'package:reels_viewer/src/models/reel_model.dart';
 import 'package:video_player/video_player.dart';
 
 import 'components/screen_options.dart';
+import 'components/video_service.dart';
 
 class ReelsPage extends StatefulWidget {
   final ReelModel item;
@@ -35,9 +36,6 @@ class ReelsPage extends StatefulWidget {
 }
 
 class _ReelsPageState extends State<ReelsPage> {
-  late VideoPlayerController _videoPlayerController;
-  ChewieController? _chewieController;
-  bool _liked = false;
   bool _isPlaying = true; // Track whether the video is playing
 
   @override
@@ -46,21 +44,13 @@ class _ReelsPageState extends State<ReelsPage> {
     initializePlayer();
   }
 
-  Future initializePlayer() async {
-    _videoPlayerController = VideoPlayerController.network(widget.item.url);
-    await Future.wait([_videoPlayerController.initialize()]);
-
-    _chewieController = ChewieController(
-      videoPlayerController: _videoPlayerController,
-      autoPlay: true,
-      showControls: false,
-      looping: false,
-    );
+  Future<void> initializePlayer() async {
+    await VideoService().initialize(widget.item.url);
     setState(() {});
 
-    _videoPlayerController.addListener(() {
-      if (_videoPlayerController.value.position ==
-          _videoPlayerController.value.duration) {
+    VideoService().videoPlayerController.addListener(() {
+      if (VideoService().videoPlayerController.value.position ==
+          VideoService().videoPlayerController.value.duration) {
         widget.swiperController.next();
       }
     });
@@ -68,18 +58,16 @@ class _ReelsPageState extends State<ReelsPage> {
 
   @override
   void dispose() {
-    _chewieController?.pause(); // Pause before dispose
-    _chewieController?.dispose();
-    _videoPlayerController.dispose();
+    VideoService().dispose();
     super.dispose();
   }
 
   void _togglePlayPause() {
     setState(() {
       if (_isPlaying) {
-        _chewieController?.pause();
+        VideoService().chewieController?.pause();
       } else {
-        _chewieController?.play();
+        VideoService().chewieController?.play();
       }
       _isPlaying = !_isPlaying;
     });
@@ -93,14 +81,17 @@ class _ReelsPageState extends State<ReelsPage> {
   Widget getVideoView() {
     return PopScope(
       onPopInvoked: (val) async {
-        _videoPlayerController.dispose();
-        _chewieController?.dispose();
+        VideoService().dispose();
       },
       child: Stack(
         fit: StackFit.expand,
         children: [
-          _chewieController != null &&
-                  _chewieController!.videoPlayerController.value.isInitialized
+          VideoService().chewieController != null &&
+                  VideoService()
+                      .chewieController!
+                      .videoPlayerController
+                      .value
+                      .isInitialized
               ? FittedBox(
                   fit: BoxFit.cover,
                   child: SizedBox(
@@ -110,7 +101,7 @@ class _ReelsPageState extends State<ReelsPage> {
                       onTap: _togglePlayPause, // Toggle play/pause on tap
                       onDoubleTap: () {},
                       child: Chewie(
-                        controller: _chewieController!,
+                        controller: VideoService().chewieController!,
                       ),
                     ),
                   ),
@@ -128,7 +119,7 @@ class _ReelsPageState extends State<ReelsPage> {
               bottom: 0,
               width: MediaQuery.of(context).size.width,
               child: VideoProgressIndicator(
-                _videoPlayerController,
+                VideoService().videoPlayerController,
                 allowScrubbing: false,
                 colors: const VideoProgressColors(
                   backgroundColor: Colors.black,

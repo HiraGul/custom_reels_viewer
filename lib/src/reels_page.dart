@@ -81,7 +81,7 @@ class _ReelsPageState extends State<ReelsPage> {
   Widget getVideoView() {
     return PopScope(
       onPopInvoked: (val) async {
-        VideoService().dispose();
+        // VideoService().dispose();
       },
       child: Stack(
         fit: StackFit.expand,

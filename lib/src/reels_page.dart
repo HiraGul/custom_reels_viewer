@@ -37,8 +37,7 @@ class ReelsPage extends StatefulWidget {
 class _ReelsPageState extends State<ReelsPage> {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
-  bool _liked = false;
-  bool _isPlaying = true; // Track whether the video is playing
+  bool _isPlaying = true;
 
   @override
   void initState() {
@@ -91,68 +90,62 @@ class _ReelsPageState extends State<ReelsPage> {
   }
 
   Widget getVideoView() {
-    return PopScope(
-      onPopInvoked: (val) async {
-        _videoPlayerController.dispose();
-        _chewieController?.dispose();
-      },
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          _chewieController != null &&
-                  _chewieController!.videoPlayerController.value.isInitialized
-              ? FittedBox(
-                  fit: BoxFit.cover,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    child: GestureDetector(
-                      onTap: _togglePlayPause, // Toggle play/pause on tap
-                      onDoubleTap: () {},
-                      child: Chewie(
-                        controller: _chewieController!,
-                      ),
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        _chewieController != null &&
+                _chewieController!.videoPlayerController.value.isInitialized
+            ? FittedBox(
+                fit: BoxFit.cover,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: GestureDetector(
+                    onTap: _togglePlayPause, // Toggle play/pause on tap
+                    onDoubleTap: () {},
+                    child: Chewie(
+                      controller: _chewieController!,
                     ),
                   ),
-                )
-              : const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
-                  ],
                 ),
-          if (widget.showProgressIndicator)
-            Positioned(
-              bottom: 0,
-              width: MediaQuery.of(context).size.width,
-              child: VideoProgressIndicator(
-                _videoPlayerController,
-                allowScrubbing: false,
-                colors: const VideoProgressColors(
-                  backgroundColor: Colors.black,
-                  bufferedColor: Colors.black,
-                  playedColor: Colors.blueAccent,
-                ),
+              )
+            : const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+        if (widget.showProgressIndicator)
+          Positioned(
+            bottom: 0,
+            width: MediaQuery.of(context).size.width,
+            child: VideoProgressIndicator(
+              _videoPlayerController,
+              allowScrubbing: false,
+              colors: const VideoProgressColors(
+                backgroundColor: Colors.black,
+                bufferedColor: Colors.black,
+                playedColor: Colors.blueAccent,
               ),
             ),
-          Positioned(
-            bottom: 20,
-            left: 0,
-            right: 0,
-            child: ScreenOptions(
-              onClickMoreBtn: widget.onClickMoreBtn,
-              onComment: widget.onComment,
-              onFollow: widget.onFollow,
-              onLike: widget.onLike,
-              onShare: widget.onShare,
-              showVerifiedTick: widget.showVerifiedTick,
-              item: widget.item,
-            ),
-          )
-        ],
-      ),
+          ),
+        Positioned(
+          bottom: 20,
+          left: 0,
+          right: 0,
+          child: ScreenOptions(
+            onClickMoreBtn: widget.onClickMoreBtn,
+            onComment: widget.onComment,
+            onFollow: widget.onFollow,
+            onLike: widget.onLike,
+            onShare: widget.onShare,
+            showVerifiedTick: widget.showVerifiedTick,
+            item: widget.item,
+          ),
+        )
+      ],
     );
   }
 }
